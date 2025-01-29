@@ -18,7 +18,11 @@ app.use(cors({ origin:  "http://localhost:3000", methods: ["GET", "POST"] }));
 
 async function connectToMongo() {
   try {
-    const client = new MongoClient(mongoURL);
+    const client = new MongoClient(mongoURL ,  {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  tls: true, // Ensure TLS is enabled
+});
     await client.connect();
     db = client.db("example");
     console.log("Connected successfully to MongoDB");
